@@ -224,7 +224,7 @@
             <stringProp name="RegexExtractor.regex">&lt;h2 class=&quot;title&quot;&gt;[\s]+?&lt;a href=&quot;([\s\S]+?)&quot; title=&quot;Show products in category</stringProp>
             <stringProp name="RegexExtractor.template">$1$</stringProp>
             <stringProp name="RegexExtractor.default">ERROR</stringProp>
-            <stringProp name="RegexExtractor.match_number">-1</stringProp>
+            <stringProp name="RegexExtractor.match_number">0</stringProp>
           </RegexExtractor>
           <hashTree/>
         </hashTree>
@@ -244,7 +244,7 @@
               <stringProp name="HTTPSampler.port"></stringProp>
               <stringProp name="HTTPSampler.protocol">${PROTOCOL}</stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">${__RandomFromMultipleVars(random_category)}</stringProp>
+              <stringProp name="HTTPSampler.path">/${random_category}</stringProp>
               <stringProp name="HTTPSampler.method">GET</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -253,7 +253,6 @@
               <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
               <stringProp name="HTTPSampler.connect_timeout"></stringProp>
               <stringProp name="HTTPSampler.response_timeout"></stringProp>
-              <stringProp name="TestPlan.comments">/${random_category}  </stringProp>
             </HTTPSamplerProxy>
             <hashTree>
               <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="false">
@@ -288,7 +287,7 @@
               <stringProp name="RegexExtractor.regex">&lt;h2 class=&quot;product-title&quot;&gt;[\s\S]+?&lt;a href=&quot;([\s\S]+?)&quot;</stringProp>
               <stringProp name="RegexExtractor.template">$1$</stringProp>
               <stringProp name="RegexExtractor.default">ERROR</stringProp>
-              <stringProp name="RegexExtractor.match_number">-1</stringProp>
+              <stringProp name="RegexExtractor.match_number">0</stringProp>
             </RegexExtractor>
             <hashTree/>
           </hashTree>
@@ -309,7 +308,7 @@
               <stringProp name="HTTPSampler.port"></stringProp>
               <stringProp name="HTTPSampler.protocol">${PROTOCOL}</stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/${__RandomFromMultipleVars(random_product)}</stringProp>
+              <stringProp name="HTTPSampler.path">/${random_product}</stringProp>
               <stringProp name="HTTPSampler.method">GET</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -353,26 +352,17 @@
               <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="REE: {cart_verification_token}" enabled="true">
                 <stringProp name="RegexExtractor.useHeaders">false</stringProp>
                 <stringProp name="RegexExtractor.refname">cart_verification_token</stringProp>
-                <stringProp name="RegexExtractor.regex">RequestVerificationToken&quot;[\s\S]+?value=&quot;([\s\S]+?)&quot;</stringProp>
+                <stringProp name="RegexExtractor.regex">&lt;input name=&quot;__RequestVerificationToken&quot; type=&quot;hidden&quot; value=&quot;([^&quot;]+)&quot; </stringProp>
                 <stringProp name="RegexExtractor.template">$1$</stringProp>
                 <stringProp name="RegexExtractor.default">ERROR</stringProp>
                 <stringProp name="RegexExtractor.match_number">1</stringProp>
               </RegexExtractor>
               <hashTree/>
-              <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="REE: {data-productid}" enabled="true">
+              <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="REE: {id_url}" enabled="true">
                 <stringProp name="RegexExtractor.useHeaders">false</stringProp>
-                <stringProp name="RegexExtractor.refname">data-productid</stringProp>
-                <stringProp name="RegexExtractor.regex">Add to cart&quot; data-productid=&quot;(\d+)&quot;[\s\S]+?</stringProp>
-                <stringProp name="RegexExtractor.template">$1$</stringProp>
-                <stringProp name="RegexExtractor.default">ERROR</stringProp>
-                <stringProp name="RegexExtractor.match_number">1</stringProp>
-              </RegexExtractor>
-              <hashTree/>
-              <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="REE: {addproducttocart_details}" enabled="true">
-                <stringProp name="RegexExtractor.useHeaders">false</stringProp>
-                <stringProp name="RegexExtractor.refname">addproducttocart_details</stringProp>
-                <stringProp name="RegexExtractor.regex">addproducttocart_details\(&apos;([\s\S]+?)&apos;</stringProp>
-                <stringProp name="RegexExtractor.template">$1$</stringProp>
+                <stringProp name="RegexExtractor.refname">id_url</stringProp>
+                <stringProp name="RegexExtractor.regex">Add to cart&quot; data-productid=&quot;(\d+)&quot;[\s\S]+?addproducttocart_details\(&apos;([\s\S]+?)&apos;</stringProp>
+                <stringProp name="RegexExtractor.template">$1$.$2$</stringProp>
                 <stringProp name="RegexExtractor.default">ERROR</stringProp>
                 <stringProp name="RegexExtractor.match_number">1</stringProp>
               </RegexExtractor>
@@ -380,7 +370,7 @@
             </hashTree>
           </hashTree>
         </hashTree>
-        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller" enabled="true">
+        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller" enabled="false">
           <stringProp name="IfController.condition">${__jexl2(&quot;${JMeterThread.last_sample_ok}&quot; == &quot;true&quot;,)}</stringProp>
           <boolProp name="IfController.evaluateAll">false</boolProp>
           <boolProp name="IfController.useExpression">true</boolProp>
@@ -391,9 +381,9 @@
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="/addproducttocart" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
                 <collectionProp name="Arguments.arguments">
-                  <elementProp name="addtocart_${data-productid}.EnteredQuantity" elementType="HTTPArgument">
+                  <elementProp name="addtocart_20.EnteredQuantity" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.name">addtocart_${data-productid}.EnteredQuantity</stringProp>
+                    <stringProp name="Argument.name">addtocart_20.EnteredQuantity</stringProp>
                     <stringProp name="Argument.value">1</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                     <boolProp name="HTTPArgument.use_equals">true</boolProp>
@@ -405,13 +395,27 @@
                     <stringProp name="Argument.metadata">=</stringProp>
                     <boolProp name="HTTPArgument.use_equals">true</boolProp>
                   </elementProp>
+                  <elementProp name="addtocart_18.EnteredQuantity" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">1</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                    <stringProp name="Argument.name">addtocart_18.EnteredQuantity</stringProp>
+                  </elementProp>
+                  <elementProp name="__RequestVerificationToken" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">CfDJ8Cj8MYam5zNKjIV2VxIIzkyR14Ui5e7r1tVptzakpHxH-OKIvPCsjkJRQYz5qR8EfxUKZwAAnZLhNDa-0MQYula7NvaSF7Wtacky-XhSkiZISsirWKeoAyAPdLHoLPC7oJUoE-XIlsyOKu8ioNY1O2A</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                    <stringProp name="Argument.name">__RequestVerificationToken</stringProp>
+                  </elementProp>
                 </collectionProp>
               </elementProp>
               <stringProp name="HTTPSampler.domain">${HOST}</stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
               <stringProp name="HTTPSampler.protocol">${PROTOCOL}</stringProp>
               <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
-              <stringProp name="HTTPSampler.path">/${addproducttocart_details}</stringProp>
+              <stringProp name="HTTPSampler.path">/addproducttocart</stringProp>
               <stringProp name="HTTPSampler.method">POST</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
