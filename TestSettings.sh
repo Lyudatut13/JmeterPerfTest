@@ -2,11 +2,11 @@
 
 #set pause between addition of users
 
-UserperSeconds=1
+#UserperSeconds=1
 
 #set duration of test
 
-duration=3600
+duration=600
 
 #set requests per second rate
 
@@ -14,7 +14,7 @@ duration=3600
 
 #type of the test web
 
-myTestName_web=ramp-up_web
+myTestName_web=ramp-up_nopCommerce
 
 #controller rmi port for web
 
