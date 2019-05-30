@@ -2,11 +2,11 @@
 
 #set pause between addition of users
 
-UserperSeconds=1
+#UserperSeconds=1
 
 #set duration of test
 
-duration=3600
+#duration=1200
 
 #set requests per second rate
 
@@ -14,7 +14,7 @@ duration=3600
 
 #type of the test web
 
-myTestName_web=ramp-up_web
+myTestName_web=ramp-up_nopCommerce
 
 #controller rmi port for web
 
@@ -48,6 +48,7 @@ script_path="${base_dir}/scripts/Test_NopCommerce.jmx"
 #feeds="${base_dir}/feeds/users.csv"
 
 
-${base_dir}/jmeter/bin/jmeter.sh -n -JserverAddress=${server} -Jduration=${duration} -JmyTestName=${myTestName_web} -t $script_path -r
+${base_dir}/jmeter/bin/jmeter.sh -n -JserverAddress=${server} -JmyTestName=${myTestName_web} -t $script_path -r
 #-Juser_feeds=${feeds} 
+#-Jduration=${duration}
 #-l $logs_path -e -o $html_report_path

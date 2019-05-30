@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 2019-05-30 16:47:24,603 INFO o.a.j.u.JMeterUtils: Setting Locale to en_EN
 2019-05-30 16:47:24,619 INFO o.a.j.JMeter: Loading user properties from: user.properties
 2019-05-30 16:47:24,619 INFO o.a.j.JMeter: Loading system properties from: system.properties
@@ -50,3 +51,5 @@
 2019-05-30 16:47:32,183 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must contain the string: '.functions.'
 2019-05-30 16:47:32,183 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must not contain the string: '.gui.'
 2019-05-30 16:47:32,266 INFO o.a.j.s.FileServer: Set new base='D:\Programs\Git\JmeterPerfTest\scripts'
+=======
+>>>>>>> 74ac22ff7cd91a0e2c3630854ee9e03c58729ca4
